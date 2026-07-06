@@ -33,6 +33,7 @@ fn log_response(req : Response, logger : &Logger) -> Unit {
 
 ///|
 async test "read_request basic" {
+  @coroutine.set_loc()
   let log = StringBuilder::new()
   @async.with_task_group() <| root => {
     let (r, w) = @io.pipe()
@@ -62,6 +63,7 @@ async test "read_request basic" {
 
 ///|
 async test "read_request fixed body" {
+  @coroutine.set_loc()
   let log = StringBuilder::new()
   @async.with_task_group() <| root => {
     let (r, w) = @io.pipe()
@@ -94,6 +96,7 @@ async test "read_request fixed body" {
 
 ///|
 async test "read_request fixed body early EOF" {
+  @coroutine.set_loc()
   @async.with_task_group() <| root => {
     let (r, w) = @io.pipe()
     root.spawn_bg() <| () => {
@@ -119,6 +122,7 @@ async test "read_request fixed body early EOF" {
 
 ///|
 async test "read_request chunked" {
+  @coroutine.set_loc()
   let log = StringBuilder::new()
   @async.with_task_group() <| root => {
     let (r, w) = @io.pipe()
@@ -155,6 +159,7 @@ async test "read_request chunked" {
 
 ///|
 async test "read_request stream" {
+  @coroutine.set_loc()
   let log = StringBuilder::new()
   @async.with_task_group() <| root => {
     let (r, w) = @io.pipe()
@@ -205,6 +210,7 @@ async test "read_request stream" {
 
 ///|
 async test "multiple request" {
+  @coroutine.set_loc()
   let log = StringBuilder::new()
   @async.with_task_group() <| root => {
     let (r, w) = @io.pipe()
@@ -267,6 +273,7 @@ async test "multiple request" {
 
 ///|
 async test "read_response basic" {
+  @coroutine.set_loc()
   let log = StringBuilder::new()
   @async.with_task_group() <| root => {
     let (r, w) = @io.pipe()
@@ -298,6 +305,7 @@ async test "read_response basic" {
 
 ///|
 async test "read_response passthrough fallback (no length headers)" {
+  @coroutine.set_loc()
   let log = StringBuilder::new()
   @async.with_task_group() <| root => {
     let (r, w) = @io.pipe()
@@ -335,6 +343,7 @@ async test "read_response passthrough fallback (no length headers)" {
 
 ///|
 async test "read_response 204 No Content (no body)" {
+  @coroutine.set_loc()
   let log = StringBuilder::new()
   @async.with_task_group() <| root => {
     let (r, w) = @io.pipe()
@@ -372,6 +381,7 @@ async test "read_response 204 No Content (no body)" {
 
 ///|
 async test "read_response 205 Reset Content (no body)" {
+  @coroutine.set_loc()
   let log = StringBuilder::new()
   @async.with_task_group() <| root => {
     let (r, w) = @io.pipe()
@@ -409,6 +419,7 @@ async test "read_response 205 Reset Content (no body)" {
 
 ///|
 async test "read_response 304 Not Modified (no body)" {
+  @coroutine.set_loc()
   let log = StringBuilder::new()
   @async.with_task_group() <| root => {
     let (r, w) = @io.pipe()
@@ -446,6 +457,7 @@ async test "read_response 304 Not Modified (no body)" {
 
 ///|
 async test "read_response 100 Continue (no body)" {
+  @coroutine.set_loc()
   let log = StringBuilder::new()
   @async.with_task_group() <| root => {
     let (r, w) = @io.pipe()
@@ -478,6 +490,7 @@ async test "read_response 100 Continue (no body)" {
 
 ///|
 async test "read_response CONNECT 200 (no body, tunnel mode)" {
+  @coroutine.set_loc()
   let log = StringBuilder::new()
   @async.with_task_group() <| root => {
     let (r, w) = @io.pipe()
@@ -512,6 +525,7 @@ async test "read_response CONNECT 200 (no body, tunnel mode)" {
 
 ///|
 async test "read_response HEAD 200 (no body)" {
+  @coroutine.set_loc()
   let log = StringBuilder::new()
   @async.with_task_group() <| root => {
     let (r, w) = @io.pipe()
@@ -754,6 +768,7 @@ test "should_read_body_until_close - false cases (HEAD requests)" {
 
 ///|
 async test "gzip split between chunks" {
+  @coroutine.set_loc()
   let compressed = @async.with_task_group(group => {
     let (r, w) = @io.pipe()
     group.spawn_bg() <| () => {
@@ -794,6 +809,7 @@ async test "gzip split between chunks" {
 
 ///|
 async test "read_response parse cookie" {
+  @coroutine.set_loc()
   @async.with_task_group() <| group => {
     let (r, w) = @io.pipe()
     group.spawn_bg() <| () => {

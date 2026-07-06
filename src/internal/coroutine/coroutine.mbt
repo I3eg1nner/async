@@ -32,7 +32,7 @@ struct Coroutine {
   mut cancelled : Bool
   mut ready : Bool
   downstream : Set[Coroutine]
-  loc : SourceLoc
+  mut loc : SourceLoc
 }
 
 ///|
@@ -199,4 +199,11 @@ pub async fn[X] protect_from_cancel(
     }
     result
   }
+}
+
+///|
+#callsite(autofill(loc))
+pub fn set_loc(loc~ : SourceLoc) -> Unit {
+  guard scheduler.curr_coro is Some(coro)
+  coro.loc = loc
 }
